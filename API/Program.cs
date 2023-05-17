@@ -16,12 +16,13 @@ app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+	app.UseSwagger();
+	app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseCors("CorsPolicy");
 app.UseAuthorization();
 
 app.MapControllers();
