@@ -15,6 +15,7 @@ namespace API.Controllers
         }
 
         [HttpGet("notfound")]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public ActionResult GetNotFoundRequest()
         {
             var thing = this._context.Products.Find(100);
@@ -28,6 +29,7 @@ namespace API.Controllers
         }
 
         [HttpGet("servererror")]
+        [ProducesResponseType(typeof(ApiException), StatusCodes.Status404NotFound)]
         public ActionResult GetServerError()
         {
             var thing = this._context.Products.Find(56);
@@ -39,12 +41,15 @@ namespace API.Controllers
         }
 
         [HttpGet("badrequest")]
+        [ProducesResponseType(typeof(ApiException), StatusCodes.Status400BadRequest)]
         public ActionResult GetBadRequest()
         {
             return BadRequest(new ApiResponse((int)HttpStatusCode.BadRequest));
         }
 
         [HttpGet("badrequest/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiException), StatusCodes.Status404NotFound)]
         public ActionResult GetBadRequest(int id)
         {
             return Ok();

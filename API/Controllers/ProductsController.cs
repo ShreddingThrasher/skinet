@@ -1,4 +1,6 @@
+using System.Net;
 using API.Dtos;
+using API.Errors;
 using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
@@ -28,6 +30,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts()
         {
             var spec = new ProductsWithTypesAndBrandsSpecification();
@@ -38,22 +41,31 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)
         {
             var spec = new ProductsWithTypesAndBrandsSpecification(id);
 
             var product = await this._productsRepo.GetEntityWithSpec(spec);
 
+            if (product == null)
+            {
+                return NotFound(new ApiResponse((int)HttpStatusCode.NotFound));
+            }
+
             return this._mapper.Map<Product, ProductToReturnDto>(product);
         }
 
         [HttpGet("brands")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IReadOnlyList<ProductBrand>>> GetProductBrands()
         {
             return Ok(await this._productBrandRepo.ListAllAsync());
         }
 
         [HttpGet("types")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IReadOnlyList<ProductBrand>>> GetProductTypes()
         {
             return Ok(await this._productTypeRepo.ListAllAsync());
