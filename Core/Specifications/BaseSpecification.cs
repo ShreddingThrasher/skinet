@@ -6,38 +6,51 @@ using System.Threading.Tasks;
 
 namespace Core.Specifications
 {
-    public class BaseSpecification<T> : ISpecification<T>
-    {
-        public BaseSpecification()
-        {
-        }
+	public class BaseSpecification<T> : ISpecification<T>
+	{
+		public BaseSpecification()
+		{
+		}
 
-        public BaseSpecification(Expression<Func<T, bool>> criteria)
-        {
-            Criteria = criteria;
-        }
+		public BaseSpecification(Expression<Func<T, bool>> criteria)
+		{
+			Criteria = criteria;
+		}
 
-        public Expression<Func<T, bool>> Criteria { get; }
+		public Expression<Func<T, bool>> Criteria { get; }
 
-        public List<Expression<Func<T, object>>> Includes { get; } = new List<Expression<Func<T, object>>>();
+		public List<Expression<Func<T, object>>> Includes { get; } = new List<Expression<Func<T, object>>>();
 
-        public Expression<Func<T, object>> OrderBy { get; private set; }
+		public Expression<Func<T, object>> OrderBy { get; private set; }
 
-        public Expression<Func<T, object>> OrderByDescending { get; private set; }
+		public Expression<Func<T, object>> OrderByDescending { get; private set; }
 
-        protected void AddInclude(Expression<Func<T, Object>> includeExpression)
-        {
-            this.Includes.Add(includeExpression);
-        }
+		public int Take { get; private set; }
 
-        protected void AddOrderBy(Expression<Func<T, Object>> orderByExpression)
-        {
-            this.OrderBy = orderByExpression;
-        }
+		public int Skip { get; private set; }
 
-        protected void AddOrderByDescending(Expression<Func<T, Object>> orderByDescExpression)
-        {
-            this.OrderByDescending = orderByDescExpression;
-        }
-    }
+		public bool IsPagingEnabled { get; private set; }
+
+		protected void AddInclude(Expression<Func<T, Object>> includeExpression)
+		{
+			this.Includes.Add(includeExpression);
+		}
+
+		protected void AddOrderBy(Expression<Func<T, Object>> orderByExpression)
+		{
+			this.OrderBy = orderByExpression;
+		}
+
+		protected void AddOrderByDescending(Expression<Func<T, Object>> orderByDescExpression)
+		{
+			this.OrderByDescending = orderByDescExpression;
+		}
+		
+		protected void ApplyPaging(int skip, int take)
+		{
+			this.Skip = skip;
+			this.Take = take;
+			this.IsPagingEnabled = true;
+		}
+	}
 }
