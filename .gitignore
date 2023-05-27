@@ -478,3 +478,4 @@ $RECYCLE.BIN/
 API/appsettings.json
 .vscode/**
 client/ssl/**
+docker-compose.yml

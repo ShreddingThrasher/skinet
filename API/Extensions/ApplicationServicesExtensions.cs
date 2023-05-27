@@ -26,6 +26,8 @@ namespace Api.Extensions
 					config.GetConnectionString("Redis")
 				);
 				
+				options.AbortOnConnectFail = false;
+				
 				return ConnectionMultiplexer.Connect(options);
 			});
 			services.AddScoped<IBasketRepository, BasketRepository>();
