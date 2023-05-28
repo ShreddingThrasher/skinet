@@ -21,6 +21,7 @@
     "@schematics/angular": "^16.0.2",
     "bootstrap": "^5.2.3",
     "bootswatch": "^5.2.3",
+    "cuid": "^3.0.0",
     "font-awesome": "^4.7.0",
     "ngx-bootstrap": "^10.2.0",
     "ngx-spinner": "^16.0.2",
