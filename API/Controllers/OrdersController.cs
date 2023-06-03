@@ -44,7 +44,9 @@ namespace API.Controllers
 			
 			var orders = await this._orderService.GetOrdersForUserAsync(email);
 			
-			return Ok(this._mapper.Map<IReadOnlyList<OrderToReturnDto>>(orders));
+			var ordersToReturn = this._mapper.Map<IReadOnlyList<Order>, IReadOnlyList<OrderToReturnDto>>(orders);
+			
+			return Ok(ordersToReturn);
 		}
 		
 		[HttpGet("{id}")]
@@ -56,7 +58,7 @@ namespace API.Controllers
 			
 			if (order == null) return NotFound(new ApiResponse(404));
 			
-			return this._mapper.Map<OrderToReturnDto>(order);
+			return this._mapper.Map<Order, OrderToReturnDto>(order);
 		}
 		
 		[HttpGet("deliveryMethods")]

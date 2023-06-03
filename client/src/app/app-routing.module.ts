@@ -18,8 +18,18 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('./checkout/checkout.module').then(m => m.CheckoutModule)
   },
-  {path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule)},
-  {path: '**', redirectTo: '', pathMatch: 'full'}
+  {
+    path: 'orders',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./orders/orders.module').then(mod => mod.OrdersModule),
+    data: { breadcrumb: 'Orders' }
+  },
+  {
+    path: 'account', 
+    loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
+    data: { breadcrumb: {skip: true} }
+  },
+  {path: '**', redirectTo: 'not-found', pathMatch: 'full'},
 ];
 
 @NgModule({

@@ -2,5 +2,16 @@
     <div><i class="fa fa-check-circle fa-5x mb-4" style="color: green"></i></div>
     <h2>Thank You!  Your order is confirmed</h2>
     <p class="mb-4">Considering this is not a real store...don't expect Your order to arrive soon :D</p>
-    <button class="btn btn-outline-success">View your order</button>
+    <button 
+        *ngIf="order"
+        class="btn btn-outline-success"
+        routerLink="/orders/{{order.id}}"
+        >View your order
+    </button>
+    <button 
+        *ngIf="!order"
+        class="btn btn-outline-success"
+        routerLink="/orders"
+        >View your orders
+    </button>
 </div>
