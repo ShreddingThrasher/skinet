@@ -479,3 +479,5 @@ API/appsettings.json
 .vscode/**
 client/ssl/**
 docker-compose.yml
+API/skinet.db
+API/identity.db
