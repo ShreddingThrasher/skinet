@@ -9,6 +9,7 @@ export class PagerComponent {
   @Input() totalCount?: number;
   @Input() totalItems?: number;
   @Input() pageSize?: number;
+  @Input() pageNumber?: number;
 
   @Output() pageChanged = new EventEmitter<number>();
 
